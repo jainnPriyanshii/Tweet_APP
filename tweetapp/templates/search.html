@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Tweets</title>
+</head>
+<body>
+    <h1>Search Tweets</h1>
+    <form method="post" action="{% url 'search' %}">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search tweets">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if tweet_text %}
+        <ul>
+            {% for tweet in tweet_text %}
+                <li>{{ tweet.user.username }}: {{ tweet.text }} {% if tweet.photo %}<img src="{{ tweet.photo.url }}" alt="Photo">{% endif %}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tweets found.</p>
+    {% endif %}
+</body>
+</html>
+
